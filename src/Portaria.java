@@ -16,15 +16,13 @@ public class Portaria {
     System.out.println();
     int total = qtdFundamental1 + qtdFundamental2 + qtdMedio;
     System.out.println("----- Percentual -----");
-    DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.ENGLISH);
-    DecimalFormat decimalFormat = new DecimalFormat("0.00%", dfs);
-    double percI = (((double) qtdFundamental1 / total));
-    double percII = (((double) qtdFundamental2 / total));
-    double percMed = (((double) qtdMedio / total));
-    System.out.println("Ensino Fundamental I: " + decimalFormat.format(percI));
-    System.out.println("Ensino Fundamental II: " + decimalFormat.format(percII));
-    System.out.println("Ensino Médio: " + decimalFormat.format(percMed));
+    double percI = (((double) qtdFundamental1 / total) * 100);
+    double percII = (((double) qtdFundamental2 / total) * 100);
+    double percMed = (((double) qtdMedio / total) * 100);
 
+    System.out.println("Ensino Fundamental I: " + formatarNumero(percI) + "%");
+    System.out.println("Ensino Fundamental II: " + formatarNumero(percII) + "%");
+    System.out.println("Ensino Médio: " + formatarNumero(percMed) + "%");
     System.out.println();
     System.out.println("TOTAL: " + total);
   }
@@ -63,6 +61,20 @@ public class Portaria {
         System.out.println("Entre com uma opção válida!");
       }
     }
-
   }
+
+  /**
+   * Método formatarNúmero.
+   */
+  public static String formatarNumero(double number) {
+    DecimalFormat df;
+    DecimalFormatSymbols dfs = new DecimalFormatSymbols(Locale.ENGLISH);
+    if (number * 10 % 1 == 0) {
+      df = new DecimalFormat("0.0", dfs);
+    } else {
+      df = new DecimalFormat("0.##", dfs);
+    }
+    return df.format(number);
+  }
+
 }
